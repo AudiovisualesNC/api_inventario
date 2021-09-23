@@ -1,0 +1,1 @@
+Todas las operaciones que tienen que hacerse sobre la base de datos
