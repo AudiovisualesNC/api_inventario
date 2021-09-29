@@ -47,6 +47,10 @@ async def new_room(room: schemas.Item, db: Session = Depends(get_db)):
                                      cam=room.cam, monitor=room.monitor, zone=room.zone, province=room.province,
                                      office=room.office, building_name=room.building_name)
     db_room = crud.get_room_by_hostname(db, hostname=room_create.hostname)
+    db_sala = crud.get_sala_by_roomid(db, room_id=room_create.room_id)
+    if not db_sala:
+        salas_create = schemas.SalaCreate(room_name=room.room_name, room_id=room.id, keypad=room.with_button, camara=room.cam, monitor=room.monitor)
+        crud.create_sala(db, salas_create)
     if db_room:
         if not db_room == room_create:
             return crud.update_room(db, room_create, db_room)

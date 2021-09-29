@@ -39,9 +39,35 @@ class Room(Base):
             return False
         else:
             return self.ip == other.ip and self.hostname == other.hostname and self.room_id == other.room_id \
-               and self.room_name == other.room_name and self.port_name == other.port_name \
-               and self.open_port == str(other.open_port) and self.script_version == other.script_version \
-               and self.with_button == str(other.with_button) and self.operating_system == other.operating_system \
-               and self.device == other.device and self.cam == other.cam and self.monitor == other.monitor \
-               and self.zone == other.zone and self.province == other.province and self.office == other.office \
-               and self.building_name == other.building_name
+                   and self.room_name == other.room_name and self.port_name == other.port_name \
+                   and self.open_port == str(other.open_port) and self.script_version == other.script_version \
+                   and self.with_button == str(other.with_button) and self.operating_system == other.operating_system \
+                   and self.device == other.device and self.cam == other.cam and self.monitor == other.monitor \
+                   and self.zone == other.zone and self.province == other.province and self.office == other.office \
+                   and self.building_name == other.building_name
+
+
+class Sala(Base):
+    __tablename__ = "salas"
+
+    idsalas = Column(Integer, primary_key=True, index=True)
+    room_id = Column(String, unique=True, index=True)
+    room_name = Column(String, unique=True)
+    keypad = Column(Integer)
+    camara = Column(String)
+    monitor = Column(String, nullable=True)
+    id_edificio = Column(Integer, nullable=True)
+    calendario = Column(String, nullable=True)
+    nota = Column(String, nullable=True)
+
+    def __eq__(self, other):
+        """
+        :param other: Clase recibida para comparar
+        :return:
+        """
+        if not isinstance(other, Sala):
+            return False
+        else:
+            return self.idsalas == other.idsalas and self.room_id == other.room_id and self.room_name == other.room_name \
+                   and self.monitor == other.monitor and self.camara == other.camara and self.keypad == other.keypad \
+                   and self.id_edificio == other.id_edificio

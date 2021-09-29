@@ -1,4 +1,3 @@
-
 from typing import List, Optional
 
 from pydantic import BaseModel
@@ -54,3 +53,25 @@ class Item(BaseModel):
     province: Optional[str] = None
     office: Optional[str] = None
     building_name: Optional[str] = None
+
+
+class SalaBase(BaseModel):
+    room_name: str
+    room_id: str
+    keypad: bool
+    camara: str
+    monitor: Optional[str] = None
+    id_edificio: Optional[int] = None
+
+
+class SalaCreate(SalaBase):
+    pass
+
+
+class Sala(SalaBase):
+    id: int
+    calendar: Optional[str] = None
+    nota: Optional[str] = None
+
+    class Config:
+        orm_mode = True

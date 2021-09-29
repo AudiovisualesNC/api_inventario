@@ -52,3 +52,15 @@ def update_last_connection(db: Session, room: models.Room):
     db.commit()
     return timestamp
 
+
+def get_sala_by_roomid(db: Session, room_id: str):
+    return db.query(models.Sala).filter(models.Sala.room_id == room_id).first()
+
+
+def create_sala(db: Session, room: schemas.SalaCreate):
+    db_room = models.Sala(room_id=room.room_id, room_name=room.room_name,
+                          keypad=room.keypad, camara=room.camara, monitor=room.monitor)
+    db.add(db_room)
+    db.commit()
+    db.refresh(db_room)
+    return db_room
